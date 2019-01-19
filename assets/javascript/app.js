@@ -10,20 +10,16 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-var trainName;
-var destination;
-var firstTrainTime;
-var frequency;
 
 //  Button for adding trains
 $("#submit").on("click", function (event) {
     event.preventDefault();
 
     // Grabs user input
-    trainName = $("#train-name").val().trim();
-    destination = $("#destination").val().trim();
-    firstTrainTime = $("#first-train-time").val().trim();
-    frequency = $("#frequency").val().trim();
+    var trainName = $("#train-name").val().trim();
+    var destination = $("#destination").val().trim();
+    var firstTrainTime = $("#first-train-time").val().trim();
+    var frequency = $("#frequency").val().trim();
 
     // Creates local "temporary" object for holding train data
     var newTrain = {
@@ -57,8 +53,9 @@ database.ref().on("child_added", function (snapshot) {
 
         var sv = snapshot.val();
         var tFrequency = $("#frequency").val("");
+        var firstTime = $("#first-train-time").val("").format("HH:mm");
 
-        var firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+        var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
         console.log(firstTimeConverted);
 
         var currentTime = moment();
@@ -80,8 +77,8 @@ database.ref().on("child_added", function (snapshot) {
         $("#train-name").text(sv.train);
         $("#destination").text(sv.dest);
         $("#frequency").text(sv.frequ);
-        $("#emp-rate").text(nextTrain);
-        $("#emp-totalBilled").text(tMinutesTillTrain);
+        $("#next-train").text(nextTrain);
+        $("#minutes-tt").text(tMinutesTillTrain);
         var tableRow = $('<tr>');
 
         for (var i = 0; i < arr.length; i++) {
