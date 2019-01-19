@@ -52,8 +52,8 @@ $("#submit").on("click", function (event) {
 database.ref().on("child_added", function (snapshot) {
 
         var sv = snapshot.val();
-        var tFrequency = $("#frequency").val("");
-        var firstTime = $("#first-train-time").val("").format("HH:mm");
+        var tFrequency = sv.frequ;
+        var firstTime = sv.first;
 
         var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
         console.log(firstTimeConverted);
@@ -63,7 +63,7 @@ database.ref().on("child_added", function (snapshot) {
 
         var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
         console.log("DIFFERENCE IN TIME: " + diffTime);
-
+       
         var tRemainder = diffTime % tFrequency;
         console.log(tRemainder);
 
@@ -86,9 +86,7 @@ database.ref().on("child_added", function (snapshot) {
             var tableData = $("<td>");
             tableData.text(arr[i]);
             tableRow.append(tableData);
-
         }
-
 
         $("tbody").append(tableRow);
 
