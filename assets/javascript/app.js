@@ -70,7 +70,7 @@ database.ref().on("child_added", function (snapshot) {
         var tMinutesTillTrain = tFrequency - tRemainder;
         console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
         console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
         var arr = [sv.train, sv.dest, sv.frequ, nextTrain, tMinutesTillTrain];
