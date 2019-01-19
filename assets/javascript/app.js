@@ -1,68 +1,87 @@
+// Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBIdViqDNMEx1g0DfzJJVt4K48XUT9BRNw",
-    authDomain: "employeeproject-3a8b4.firebaseapp.com",
-    databaseURL: "https://employeeproject-3a8b4.firebaseio.com",
-    projectId: "employeeproject-3a8b4",
-    storageBucket: "employeeproject-3a8b4.appspot.com",
-    messagingSenderId: "515738439979"
-};
+    apiKey: "AIzaSyBL32p_cUxXP-tMHBe-5H-XMMg1cut8YTQ",
+    authDomain: "myawesomeproject-1e730.firebaseapp.com",
+    databaseURL: "https://myawesomeproject-1e730.firebaseio.com",
+    projectId: "myawesomeproject-1e730",
+    storageBucket: "myawesomeproject-1e730.appspot.com",
+    messagingSenderId: "321724845525"
+  };
 firebase.initializeApp(config);
 
 var database = firebase.database();
-var employeeName;
-var role;
-var startDate;
-var monthlySalary;
+var trainName;
+var destination;
+var firstTrainTime;
+var frequency;
 
+//  Button for adding trains
 $("#submit").on("click", function (event) {
     event.preventDefault();
 
-    employeeName = $("#employee-name").val().trim();
-    role = $("#role").val().trim();
-    startDate = moment($("#start-date").val().trim(), "DD/MM/YY").format("X");
-    monthlySalary = $("#monthy-rate").val().trim();
+    // Grabs user input
+    trainName = $("#train-name").val().trim();
+    destination = $("#destination").val().trim();
+    firstTrainTime = $("#first-train-time").val().trim();
+    frequency = $("#frequency").val().trim();
 
-    var newEmp = {
-        name: employeeName,
-        role: role,
-        start: startDate,
-        rate: monthlySalary,
+    // Creates local "temporary" object for holding train data
+    var newTrain = {
+        train: trainName,
+        dest: destination,
+        first: firstTrainTime,
+        frequ: frequency,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     };
 
-    database.ref().push(newEmp);
+    database.ref().push(newTrain);
 
+    // Logs everythign to the console
+    console.log(newTrain.trainName);
+    console.log(newTrain.destination);
+    console.log(newTrain.firstTrainTime);
+    console.log(newTrain.frequency);
 
+    // Alert
+    alert("Train added successfully");
+
+    // Clears all of the text-boxes
+    $("#train-name").val("");
+    $("#destination").val("");
+    $("#first-train-time").val("");
+    $("#frequency").val("");
 });
+
+// 3. Create Firebase event for adding trains to the database and a row in the html when a user adds an entry
 database.ref().on("child_added", function (snapshot) {
 
         var sv = snapshot.val();
+        var tFrequency = $("#frequency").val("");
 
-        // console.log(sv.name);
-        // console.log(sv.role);
-        // console.log(sv.start);
-        // console.log(sv.rate);
+        var firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
 
-        var now = moment(new Date());
-        var end = moment(sv.start);
-        var duration = moment.duration(now.diff(end));
-        var empMonths = parseInt(duration.asMonths());
-        //var empMonths = moment(sv.start).diff(moment.unix(sv.start, "X"), "months");
-        console.log(empMonths);
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
 
-        var totalBilled = empMonths * sv.rate;
-        //console.log(totalBilled);
-        //console.log(typeof sv.rate);
+        var tRemainder = diffTime % tFrequency;
+        console.log(tRemainder);
 
-        var arr = [sv.name, sv.role, sv.start, empMonths, sv.rate, totalBilled];
-        $("#emp-name").text(sv.name);
-        $("#emp-role").text(sv.role);
-        $("#emp-start").text(sv.start);
-        $("#emp-empMonths").text(empMonths);
-        $("#emp-rate").text(sv.rate);
-        $("#emp-totalBilled").text(totalBilled);
-        //$("#emp-billed").text(sv.employeeName);
+        var tMinutesTillTrain = tFrequency - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+        var arr = [sv.train, sv.dest, sv.frequ, nextTrain, tMinutesTillTrain];
+        $("#train-name").text(sv.train);
+        $("#destination").text(sv.dest);
+        $("#frequency").text(sv.frequ);
+        $("#emp-rate").text(nextTrain);
+        $("#emp-totalBilled").text(tMinutesTillTrain);
         var tableRow = $('<tr>');
 
         for (var i = 0; i < arr.length; i++) {

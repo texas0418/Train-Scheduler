@@ -1,7 +1,27 @@
-.card-body a {
-    word-break: break-all;
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
   }
 
-  .articleHeadline {
-    line-height: 1.5;
+.card {
+      opacity: .9;
+      font-family: 'Montserrat', sans-serif;
   }
+
+#top-card {
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow:
+		-2px -2px 0 black,
+		2px -2px 0 black,
+		-2px 2px 0 black,
+		2px 2px 0 black;
+    opacity: .6;
+}
+
+#btn {
+    color: black;
+}

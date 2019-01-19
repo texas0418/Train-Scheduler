@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
 
     <!-- Style links -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="assets/css/style.css"/>
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet">
+
     <!-- Firebase and  Moment JS links-->
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-
-   
+    <video autoplay muted loop id="myVideo">
+        <source src="assets/images/trains-vintage.mp4" type="video/mp4">
+    </video>
 </head>
 
 <body>
@@ -24,11 +26,11 @@
     <div class="container">
 
         <!-- Jumbotron for Title -->
-        <div class="jumbotron" style="background-color: #20315A ; color: white;">
+        <div class="card" id="top-card" style="background-color: darkgrey ; color: white;">
             <h1 class="text-center">
-                <strong> Employee Data Management</strong>
+                <strong> Train Scheduler</strong>
             </h1>
-            <h3 class="text-center">A Comprehensive Directory of Employee Billable Hours</h3>
+            <h3 class="text-center">We get you there six times as slow for twice the cost!</h3>
         </div>
 
 
@@ -41,19 +43,17 @@
 
                     <!-- card Heading for the retrieved articles box -->
                     <div class="card-header">
-                        <strong>
-                            <i class="fa fa-table"></i> Current Employees</strong>
+                        <strong> Current Train Schedule</strong>
 
                         <div class="panel-body">
                             <table class="table table-hover" id='employee-table'>
                                 <thead>
                                     <tr>
-                                        <th>Employee Name</th>
-                                        <th>Role</th>
-                                        <th>Start Date</th>
-                                        <th>Months Worked</th>
-                                        <th>Monthly Rate ($)</th>
-                                        <th>Total Billed ($)</th>
+                                        <th>Train Line</th>
+                                        <th>Destination</th>
+                                        <th>Frequency (min)</th>
+                                        <th>Next Arrival</th>
+                                        <th>Minutes Away</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,41 +77,40 @@
                 <!-- First card is for handling the search parameters -->
                 <div class="card">
                     <div class="card-header">
-                        <strong>
-                            <i class="fa fa-list-alt"></i> Add Employee</strong>
+                        <strong>Add Train Line</strong>
                     </div>
                     <div class="card-body">
 
 
                         <form role="form">
 
-
+                            <!-- Here we capture the train line name  -->
                             <div class="form-group">
-                                <label for="search">Employee Name</label>
-                                <input type="text" class="form-control" id="employee-name">
+                                <label for="train-line">Train Line</label>
+                                <input type="text" class="form-control" id="train-name">
                             </div>
 
-                            <!-- Here we capture the number of records that the user wants to retrieve  -->
+                            <!-- Here we capture the destination  -->
                             <form>
                                 <div class="form-group">
-                                    <label for="employeeRole">Role</label>
-                                    <input type="text" class="form-control" id="role">
+                                    <label for="train-dest">Destination</label>
+                                    <input type="text" class="form-control" id="destination">
                                 </div>
 
-                                <!-- Here we capture the Start Year Parameter-->
+                                <!-- Here we capture the train start time-->
                                 <div class="form-group">
-                                    <label for="start-year">Start Date (MM/DD/YYYY)</label>
-                                    <input type="text" class="form-control" id="start-date">
+                                    <label for="train-time">First Train Time (HH:mm - military time)</label>
+                                    <input type="text" class="form-control" id="first-train-time">
                                 </div>
 
-                                <!-- Here we capture the End Year Parameter -->
+                                <!-- Here we capture the train frequency -->
                                 <div class="form-group">
-                                    <label for="end-year">Monthly Rate</label>
-                                    <input type="text" class="form-control" id="monthy-rate">
+                                    <label for="train-freq">Frequency (min)</label>
+                                    <input type="text" class="form-control" id="frequency">
                                 </div>
 
                                 <!-- Here we have our final submit button -->
-                                <button type="button" id="submit" class="btn btn-primary">Submit</button>
+                                <button type="button" id="submit" class="btn btn-dark">Submit</button>
 
                             </form>
                     </div>
