@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Train Schedules</title>
+    <!-- Bootstrap CSS CDN  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+    <!-- Style links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    
+    <!-- Firebase and  Moment JS links-->
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+   
+</head>
+
+<body>
+
+    <!-- Main Bootstrap Search -->
+    <div class="container">
+
+        <!-- Jumbotron for Title -->
+        <div class="jumbotron" style="background-color: #20315A ; color: white;">
+            <h1 class="text-center">
+                <strong> Employee Data Management</strong>
+            </h1>
+            <h3 class="text-center">A Comprehensive Directory of Employee Billable Hours</h3>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+
+                <!-- This card will initially be made up of a card and wells for each of the articles retrieved -->
+                <div class="card">
+
+                    <!-- card Heading for the retrieved articles box -->
+                    <div class="card-header">
+                        <strong>
+                            <i class="fa fa-table"></i> Current Employees</strong>
+
+                        <div class="panel-body">
+                            <table class="table table-hover" id='employee-table'>
+                                <thead>
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>Role</th>
+                                        <th>Start Date</th>
+                                        <th>Months Worked</th>
+                                        <th>Monthly Rate ($)</th>
+                                        <th>Total Billed ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- This main card will hold each of the resulting articles -->
+                    <div class="card-body" id="current-employees">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+                <!-- First card is for handling the search parameters -->
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <i class="fa fa-list-alt"></i> Add Employee</strong>
+                    </div>
+                    <div class="card-body">
+
+
+                        <form role="form">
+
+
+                            <div class="form-group">
+                                <label for="search">Employee Name</label>
+                                <input type="text" class="form-control" id="employee-name">
+                            </div>
+
+                            <!-- Here we capture the number of records that the user wants to retrieve  -->
+                            <form>
+                                <div class="form-group">
+                                    <label for="employeeRole">Role</label>
+                                    <input type="text" class="form-control" id="role">
+                                </div>
+
+                                <!-- Here we capture the Start Year Parameter-->
+                                <div class="form-group">
+                                    <label for="start-year">Start Date (MM/DD/YYYY)</label>
+                                    <input type="text" class="form-control" id="start-date">
+                                </div>
+
+                                <!-- Here we capture the End Year Parameter -->
+                                <div class="form-group">
+                                    <label for="end-year">Monthly Rate</label>
+                                    <input type="text" class="form-control" id="monthy-rate">
+                                </div>
+
+                                <!-- Here we have our final submit button -->
+                                <button type="button" id="submit" class="btn btn-primary">Submit</button>
+
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Footer Region -->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Line Break followed by closing -->
+                <hr>
+                <h5 class="text-center">
+                    <small>Made with lots and lots of
+                        <i class="fa fa-heart"></i>
+                    </small>
+                </h5>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Code to the JavaScript File -->
+    <script src="assets/javascript/app.js">
+    </script>
+</body>
+
+</html>
